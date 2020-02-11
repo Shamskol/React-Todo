@@ -1,5 +1,20 @@
 import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
+import TodoForm from "./components/TodoComponents/TodoForm";
+import uuid from "uuid";
+const initialToDo = 
+[
+  {
+    task: 'Organize Garage',
+    id: uuid(),
+    completed: false
+  },
+  {
+    task: 'Bake Cookies',
+    id: uuid(),
+    completed: false
+  }
+];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -8,25 +23,54 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      items: [],
-      currentItem: { text: "", key: "" },
+      todoList: initialToDo,
+
+      todoValue: "" 
     }
   }
   handleInput = e => {
-    console.log("Hello Input");
+    
+    
+    const {value} = e.target;
+    this.setState({todoValue: value})
   };
-  addItem = () => {
-    console.log("Hello Add Item");
+  addTask = (e) => {
+    
+  e.preventDefault()
+  
+  const newToDo =  {
+    task: this.state.todoValue,
+    id: uuid(),
+    completed: false
+  }
+this.setState ({todoList:[...this.state.todoList,newToDo],
+  todoValue: "" 
+})
   };
 
   render() {
     return (
       <div className="App">
-        <TodoList addItem={this.addItem}
-         inputElement={this.inputElement}
-         handleInput={this.handleInput}
-         currentItem={this.state.currentItem}
+    {/* <h1>This is task</h1> */}
         
+        <TodoList
+         
+
+         todoList={this.state.todoList}
+         
+         
+        
+        
+        />
+        <TodoForm
+        
+        
+        addTask={this.addTask}
+
+      
+        handleInput={this.handleInput}
+        todoValue={this.state.todoValue}
+       
         
         />
 

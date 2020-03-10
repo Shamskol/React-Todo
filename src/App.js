@@ -1,18 +1,18 @@
 import React from 'react';
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
-import uuid from "uuid";
+//import * as uuid from 'uuid';
 
 const initialToDo = 
 [
   {
     task: 'Organize Garage',
-    id: uuid(),
+    id: Date.now(),
     completed: false
   },
   {
     task: 'Bake Cookies',
-    id: uuid(),
+    id: Date.now(),
     completed: false
   }
 ];
@@ -35,7 +35,6 @@ constructor() {
   }
   handleInput = e => {
     
-    
     const {value} = e.target;
     this.setState({todoValue: value})
   };
@@ -45,10 +44,11 @@ constructor() {
   
   const newToDo =  {
     task: this.state.todoValue,
-    id: uuid(),
+    id: Date.now(),
     completed: false
   }
-this.setState ({todoList:[...this.state.todoList,newToDo],
+this.setState ({
+  todoList:[...this.state.todoList,newToDo],
   todoValue: "" 
 })
   };
@@ -59,13 +59,10 @@ this.setState ({todoList:[...this.state.todoList,newToDo],
       <div className="App">
       <TodoList
       todoList={this.state.todoList}
-      
       />  
      <TodoForm
      
      addTask={this.addTask}
-
-      
      handleInput={this.handleInput}
      todoValue={this.state.todoValue}
      
